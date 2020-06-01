@@ -1,0 +1,22 @@
+-
+  name: Installing packages on web
+  hosts: web
+  become: yes
+  tasks:
+    - name: Install extra package
+      command: amazon-linux-extra install epel
+    - name: yum loop
+      yum:
+        name: '{{item.package}}'
+        state: '{{present.stt}}''
+      loop:
+      - package: emacs
+        stt: present
+      - package: elinks
+        stt: present
+      - package: sl
+        stt: absent
+      - package: telnet
+        stt: present
+      - package: cowsay
+        stt: absent
