@@ -1,0 +1,20 @@
+-
+  name: Installing packages on web
+  hosts: web
+  become: yes
+  tasks:
+    - name: yum loop
+      yum:
+        name: '{{item.package}}'
+        state: '{{item.stt}}'
+      loop:
+      - package: emacs
+        stt: present
+      - package: elinks
+        stt: present
+      - package: sl
+        stt: absent
+      - package: telnet
+        stt: present
+      - package: cowsay
+        stt: absent
