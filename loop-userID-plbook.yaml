@@ -1,0 +1,29 @@
+-
+  name: Create users on host1
+  hosts: web
+  become: yes
+  tasks:
+    - name: Install epel-release
+      command: amazon-linux-extras install epel -y
+    - name: Create users
+      user:
+        name: '{{ item.name }}'
+        uid: '{{ item.uid }}'
+        state: present
+      loop:
+      - name: khabib
+        uid: 1010
+      - name: arman
+        uid: 1011
+      - name: lucille
+        uid: 1012
+      - name: joshua
+        uid: 1013
+      - name: kurduk
+        uid: 1014
+      - name: hypuclam
+        uid: 1015
+      - name: momo
+        uid: 1016
+      - name: appa
+        uid: 1017
