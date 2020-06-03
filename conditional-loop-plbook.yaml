@@ -7,12 +7,15 @@
         required: True
       - name: apache
         required: False
-      - name: mysql
+      - name: mysql-server
         required: True
+
+
   tasks:
     - name: "Install {{item.name}} on Debian"
       apt:
-        name: "{{item.name}}"
+        name: '{{item.name}}'
         state: present
 
-      loop: "{{packages}}"
+      loop: '{{packages}}'
+      when: item.required == True
