@@ -1,0 +1,25 @@
+-
+  name: Install Apache on web servers
+  hosts: web
+  become: yes
+  tasks:
+    - name: install nginx
+      yum:
+        name: nginx
+        state: present
+    - name: template configuration file
+      copy:
+        src: nginx.conf
+        dest: /etc/nginx/nginx.conf
+      notify:
+        - restart nginx
+    - name: add index.html content
+      shell: echo 'hello' > /usr/share/nginx/html/index.html
+      notify:
+        - restart web services
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+      listen: "restart web services"
